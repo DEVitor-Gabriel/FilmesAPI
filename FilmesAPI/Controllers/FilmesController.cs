@@ -1,4 +1,5 @@
 ﻿using FilmesAPI.Data;
+using FilmesAPI.Data.DTO;
 using FilmesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ public class FilmesController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AdicionaFilme([FromBody] Filme filme)
+    public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {
         _context.Filmes.Add(filme);
         _context.SaveChanges();
