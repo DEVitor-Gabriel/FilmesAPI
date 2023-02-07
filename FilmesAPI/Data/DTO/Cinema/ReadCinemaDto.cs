@@ -7,6 +7,7 @@ namespace FilmesAPI.Data.DTO.Cinema
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public virtual ReadEnderecoDto ReadEnderecoDto { get; set; }
+        public int EnderecoId { get; set; }
+        public virtual ReadEnderecoDto Endereco { get; set; }
     }
 }
