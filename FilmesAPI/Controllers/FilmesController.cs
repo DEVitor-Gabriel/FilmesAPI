@@ -64,4 +64,18 @@ public class FilmesController : ControllerBase
         _context.SaveChanges();
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult RemoveFilme(int id)
+    {
+        Filme? filme = _context.Filmes.FirstOrDefault(
+            filme => filme.Id == id
+            );
+
+        if (filme == null) return NotFound();
+        _context.Remove(filme);
+        _context.SaveChanges();
+        return NoContent();
+    }
+
 }
