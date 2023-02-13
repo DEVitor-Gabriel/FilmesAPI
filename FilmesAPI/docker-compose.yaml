@@ -1,10 +1,18 @@
 ﻿version: '3'
 services:
   db:
-    image: mcr.microsoft.com/mssql/server:latest
+    image: postgres
     environment:
-      SA_PASSWORD: "#FilmesApi"
-      ACCEPT_EULA: "Y"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
-      - "1433:1433"
-
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: postgress
+    # links:
+    #   - db
+    ports:
+      - "5050:80"
