@@ -29,7 +29,7 @@ public class SessaoController : ControllerBase
         _context.SaveChanges();
         return CreatedAtAction(
                 nameof(LerSessaoPorId),
-                new { id = sessao.Id },
+                new { filmeId = sessao.FilmeId, cinemaId = sessao.CinemaId },
                 sessao
             );
     }
@@ -43,10 +43,10 @@ public class SessaoController : ControllerBase
         return _mapper.Map<List<ReadSessaoDto>>(_context.Sessoes.Skip(skip).Take(take).ToList());
     }
 
-    [HttpGet("{id}")]
-    public IActionResult LerSessaoPorId(int id)
+    [HttpGet("{filmeId}/{cinemaId}")]
+    public IActionResult LerSessaoPorId(int filmeId, int cinemaId)
     {
-        Sessao? sessao = _context.Sessoes.FirstOrDefault((sessao) => sessao.Id == id);
+        Sessao? sessao = _context.Sessoes.FirstOrDefault((sessao) => sessao.FilmeId == filmeId && sessao.CinemaId == cinemaId);
 
         if (sessao == null) return NotFound();
 
@@ -67,11 +67,12 @@ public class SessaoController : ControllerBase
     //    return NoContent();
     //}
 
-    [HttpDelete("{id}")]
-    public IActionResult RemoveSessao(int id)
+    [HttpDelete("{filmeId}/{cinemaId}")]
+    public IActionResult RemoveSessao(int filmeId, int cinemaId)
     {
         Sessao? sessao = _context.Sessoes.FirstOrDefault(
-            sessao => sessao.Id == id
+            sessao => sessao.FilmeId == filmeId &&
+                    sessao.CinemaId == cinemaId
             );
 
         if (sessao == null) return NotFound();
