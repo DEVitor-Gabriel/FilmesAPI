@@ -44,16 +44,28 @@ public class FilmesController : ControllerBase
     [HttpGet]
     public IEnumerable<ReadFilmeDto> LerFilmes(
             [FromQuery] int skip = 0,
-            [FromQuery] int take = 50
+            [FromQuery] int take = 50,
+            [FromQuery] string? nomeCinema = null
         )
     {
-        return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take).ToList());
+        if (nomeCinema == null)
+        {
+            return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take).ToList());
+        }
+        return _mapper.Map<List<ReadFilmeDto>>(
+            _context
+            .Filmes
+            .Skip(skip)
+            .Take(take)
+            .Where(filme => filme.Sessoes.Any(sessao => sessao.Cinema.Nome == nomeCinema))
+            .ToList()
+        );
     }
 
     [HttpGet("{id}")]
     public IActionResult LerFilmePorId(int id)
     {
-        Filme? filme =  _context.Filmes.FirstOrDefault((filme) => filme.Id == id);
+        Filme? filme = _context.Filmes.FirstOrDefault((filme) => filme.Id == id);
 
         if (filme == null) return NotFound();
 
