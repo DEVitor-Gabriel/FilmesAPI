@@ -40,7 +40,7 @@ public class SessaoController : ControllerBase
             [FromQuery] int take = 50
         )
     {
-        return _mapper.Map<List<ReadSessaoDto>>(_context.Sessoes.Skip(skip).Take(take));
+        return _mapper.Map<List<ReadSessaoDto>>(_context.Sessoes.Skip(skip).Take(take).ToList());
     }
 
     [HttpGet("{id}")]

@@ -40,7 +40,7 @@ public class EnderecosController : ControllerBase
             [FromQuery] int take = 50
         )
     {
-        return _mapper.Map<List<ReadEnderecoDto>>(_context.Enderecos.Skip(skip).Take(take));
+        return _mapper.Map<List<ReadEnderecoDto>>(_context.Enderecos.Skip(skip).Take(take).ToList());
     }
 
     [HttpGet("{id}")]

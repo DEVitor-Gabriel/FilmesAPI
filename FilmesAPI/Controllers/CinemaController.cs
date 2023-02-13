@@ -40,7 +40,7 @@ public class CinemasController : ControllerBase
             [FromQuery] int take = 50
         )
     {
-        return _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.Skip(skip).Take(take));
+        return _mapper.Map<List<ReadCinemaDto>>(_context.Cinemas.Skip(skip).Take(take).ToList());
     }
 
     [HttpGet("{id}")]
