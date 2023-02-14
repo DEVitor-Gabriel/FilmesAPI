@@ -1,11 +1,11 @@
 ﻿using FilmesAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FilmesAPI.Data
+namespace FilmesAPI.Data.EfCore
 {
-    public class FilmeContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public FilmeContext(DbContextOptions<FilmeContext> opts)
+        public AppDbContext(DbContextOptions<AppDbContext> opts)
             : base(opts)
         {
 

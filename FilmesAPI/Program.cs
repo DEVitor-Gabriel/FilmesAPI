@@ -1,4 +1,9 @@
 using FilmesAPI.Data;
+using FilmesAPI.Data.EfCore;
+using FilmesAPI.Data.Repository.EfCore;
+using FilmesAPI.Data.Repository.Interfaces;
+using FilmesAPI.Services;
+using FilmesAPI.Services.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -6,7 +11,10 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<FilmeContext>(opts => opts.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("FilmeConnection")));
+builder.Services.AddScoped<IFilmeService, FilmeService>();
+builder.Services.AddScoped<IFilmeRepository, FilmeRepository>();
+
+builder.Services.AddDbContext<AppDbContext>(opts => opts.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("FilmeConnection")));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
